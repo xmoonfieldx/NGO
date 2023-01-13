@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const Student = require("../models/Student");
 const joi = require("joi");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-        const user = new User({
+        const student = new Student({
             name: req.body.name,
             usn: req.body.usn,
             admn_num: req.body.admn_num,
@@ -37,9 +37,9 @@ router.post("/register", async (req, res) => {
             password: hashPassword,
         });
         try {
-            await user.save((err, user) => {
-                if (user) {
-                    res.send({ user: user._id });
+            await student.save((err, student) => {
+                if (student) {
+                    res.send({ student: student._id });
                 } else {
                     res.send(err.errors.email.message);
                 }
@@ -56,25 +56,25 @@ router.post("/login", async (req, res) => {
         res.status(400).send(validation.error.details[0].message);
 
     //check if email exists
-    const user = await User.findOne({ usn: req.body.usn });
-    if (!user) res.status(400).send("USN or password is wrong");
+    const student = await Student.findOne({ usn: req.body.usn });
+    if (!student) res.status(400).send("USN or password is wrong");
 
     //check if password is correct
-    bcrypt.compare(req.body.password, user.password, (err, result) => {
+    bcrypt.compare(req.body.password, student.password, (err, result) => {
         if (result) {
             //create and assign a token
             const accessToken = jwt.sign(
-                { _id: user._id },
+                { _id: student._id },
                 process.env.ACCESS_TOKEN_SECRET
             );
 
-            User.findOne({ usn: req.body.usn }).then((user) => {
+            Student.findOne({ usn: req.body.usn }).then((student) => {
                 res.json({
-                    _id: user._id,
-                    name: user.name,
-                    usn: user.usn,
-                    admn_num: user.admn_num,
-                    email: user.email,
+                    _id: student._id,
+                    name: student.name,
+                    usn: student.usn,
+                    admn_num: student.admn_num,
+                    email: student.email,
                     accessToken: accessToken,
                 });
             });
@@ -98,34 +98,34 @@ router.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
 
     //check if email exists
-    const user = await User.findOne({ email: email });
-    if (!user) res.status(400).send("Email or password is wrong");
+    const student = await Student.findOne({ email: email });
+    if (!student) res.status(400).send("Email or password is wrong");
 
-    //if user exists
-    const secret = process.env.RESET_PASSWORD_SECRET + user.password;
+    //if student exists
+    const secret = process.env.RESET_PASSWORD_SECRET + student.password;
     const payload = {
-        email: user.email,
-        id: user._id,
+        email: student.email,
+        id: student._id,
     };
 
     const token = jwt.sign(payload, secret, { expiresIn: "15m" });
-    const link = `http://localhost:3000/${user._id}/${token}`;
+    const link = `http://localhost:3000/${student._id}/${token}`;
     sendEmail(email, link);
     res.status(200).send("Password reset link has been sent to your email");
 });
 
 router.post("/reset-password", async (req, res) => {
     const { id, token } = req.body;
-    const user = await User.findOne({ _id: id });
-    if (!user) res.status(401).send("Invalid user id");
-    const secret = process.env.RESET_PASSWORD_SECRET + user.password;
+    const student = await Student.findOne({ _id: id });
+    if (!student) res.status(401).send("Invalid student id");
+    const secret = process.env.RESET_PASSWORD_SECRET + student.password;
     try {
         const payload = jwt.verify(token, secret);
         const { password } = req.body;
         const salt = await bcrypt.genSalt(10);
         const hashPassword = await bcrypt.hash(password, salt);
-        user.password = hashPassword;
-        await user.save();
+        student.password = hashPassword;
+        await student.save();
         res.status(200).send("Password Reset Done");
     } catch (err) {
         res.status(401).send("Invalid token");
