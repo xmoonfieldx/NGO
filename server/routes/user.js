@@ -1,13 +1,13 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const Student = require("../models/Student");
 
 router.get("/:email", (req, res) => {
-    User.findOne({ email: req.params.email })
-        .then((user) =>
+    Student.findOne({ email: req.params.email })
+        .then((student) =>
             res.send({
-                _id: user._id,
-                name: user.name,
-                email: user.email,
+                _id: student._id,
+                name: student.name,
+                email: student.email,
             })
         )
         .catch((err) => res.status(400).send(err));
