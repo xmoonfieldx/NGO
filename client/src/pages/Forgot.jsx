@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 import { forgotPassword } from "../services/authServices";
 
 function Forgot() {
-    const [email, setEmail] = useState("");
+    const [usn, setUsn] = useState("");
 
-    function handleEmailChange(e) {
-        setEmail(e.target.value);
+    function handleUsnChange(e) {
+        setUsn(e.target.value);
     }
 
     async function handleForgotSubmit(e) {
         e.preventDefault();
         try {
-            const isSent = await forgotPassword(email);
+            const isSent = await forgotPassword(usn);
             if (isSent.status >= 200 && isSent.status < 300) {
                 alert("Email sent for password reset!");
             }
@@ -20,18 +20,18 @@ function Forgot() {
             alert("Email incorrect! Please try again.");
         }
 
-        setEmail("");
+        setUsn("");
     }
 
     return (
         <form className="loginForm" onSubmit={(e) => handleForgotSubmit(e)}>
             <p>Enter your Email</p>
             <input
-                placeholder="Email"
-                onChange={(e) => handleEmailChange(e)}
-                type="email"
-                id="email"
-                value={email}
+                placeholder="USN"
+                onChange={(e) => handleUsnChange(e)}
+                type="text"
+                id="usn"
+                value={usn}
             />
             <button className="btn" type="submit">
                 Submit

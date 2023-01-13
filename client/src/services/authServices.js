@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiUrl = "";
+const apiUrl = "http://localhost:8080/api";
 
 export async function login(usn, password) {
     const res = await axios.post(`${apiUrl}/auth/login`, { usn, password });
@@ -33,6 +33,13 @@ export async function resetPassword(id, token, password) {
         id,
         token,
         password,
+    });
+    return res;
+}
+
+export async function validate(token) {
+    const res = await axios.post(`${apiUrl}/auth/validate`, {
+        token: token,
     });
     return res;
 }

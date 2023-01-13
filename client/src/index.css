@@ -3,3 +3,173 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    background-color: white;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    justify-content: space-evenly;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    padding-top: 48px;
+}
+
+.title {
+    text-align: center;
+    color: rgb(10, 16, 133);
+}
+
+.home-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.loginForm > * {
+    margin: 0.5rem;
+}
+.loginForm > input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid rgb(182, 175, 175);
+    width: 15rem;
+}
+
+.signupForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.signupForm > * {
+    margin: 0.5rem;
+}
+.signupForm > input {
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid rgb(182, 175, 175);
+    width: 15rem;
+}
+
+.dashboard-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem;
+}
+
+.btn {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    width: 15rem;
+    background-color: #183dd1;
+    font-size: small;
+    color: #f5f5f5;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn:hover {
+    background-color: #183dd1dd;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+}
+
+.error > p {
+    font-size: 2.5rem;
+    color: rgb(10, 16, 133);
+    margin-bottom: 2rem;
+}
+
+.error > h1 {
+    font-size: 2.5rem;
+    color: rgb(10, 16, 133);
+}
+
+.link-btn {
+    padding: 10px;
+    background-color: #183dd1;
+    color: #fff;
+    text-decoration: none;
+    border: solid 1px rgb(10, 16, 133);
+    border-radius: 10px;
+}
+
+.link {
+    color: rgb(10, 16, 133);
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dashboardHeader {
+    position: fixed;
+    top: 0;
+    background-color: rgb(10, 16, 133);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.8rem 1.5rem 0.8rem 1.5rem;
+}
+
+.siteName {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 60px;
+}
+
+nav .link {
+    text-decoration: none;
+    text-align: center;
+    font-weight: 800;
+    color: black;
+    background-color: #fff;
+    font-size: 14px;
+    padding: 0.6rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.wrapper {
+    height: 100vh;
+    width: 100vw;
+}
+
+.welcome {
+    color: rgb(10, 16, 133);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    text-align: center;
+}

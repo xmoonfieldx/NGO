@@ -3,19 +3,32 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Cookie from "universal-cookie";
-import Selected from "./pages/Selected";
 import Forgot from "./pages/Forgot";
 import Reset from "./pages/Reset";
+import { validate } from "./services/authServices";
 
 function App() {
+    const cookies = new Cookie();
+
     function getUserDetails(data) {
         let date = new Date();
         date.setDate(date.getDate() + 30);
 
-        const cookies = new Cookie();
         cookies.set("name", data.name, { expires: date });
         cookies.set("authToken", data.accessToken, { expires: date });
         cookies.set("userId", data._id, { expires: date });
+    }
+
+    async function handleValidation() {
+        try {
+            const res = await validate(cookies.get("authToken"));
+            if (res.status >= 200 && res.status < 300) {
+                return true;
+            }
+        } catch (err) {
+            cookies.remove("authToken");
+            return false;
+        }
     }
 
     return (
@@ -24,10 +37,14 @@ function App() {
                 <Route
                     exact
                     path="/"
-                    element={<Home getUserDetails={getUserDetails} />}
+                    element={
+                        <Home
+                            getUserDetails={getUserDetails}
+                            handleValidation={handleValidation}
+                        />
+                    }
                 />
                 <Route exact path="/dashboard" element={<Dashboard />} />
-                <Route exact path="/selected" element={<Selected />} />
                 <Route exact path="/forgot" element={<Forgot />} />
                 <Route
                     exact
