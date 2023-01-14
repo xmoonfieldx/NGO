@@ -9,14 +9,14 @@ function Home({ getUserDetails, handleValidation }) {
 
     const [signupData, setSignupData] = useState({
         name: "",
-        usn: "",
-        admn_num: "",
+        description: "",
+        availability: "",
         email: "",
         password: "",
     });
 
     const [loginData, setLoginData] = useState({
-        usn: "",
+        email: "",
         password: "",
     });
 
@@ -33,7 +33,7 @@ function Home({ getUserDetails, handleValidation }) {
     async function handleLoginSubmit(e) {
         e.preventDefault();
         try {
-            const isLoggedIn = await login(loginData.usn, loginData.password);
+            const isLoggedIn = await login(loginData.email, loginData.password);
             if (isLoggedIn.status >= 200 && isLoggedIn.status < 300) {
                 getUserDetails(isLoggedIn.data);
                 navigate("/dashboard");
@@ -41,7 +41,7 @@ function Home({ getUserDetails, handleValidation }) {
         } catch (err) {
             alert("USN or Password incorrect! Please try again.");
         }
-        setLoginData({ usn: "", password: "" });
+        setLoginData({ email: "", password: "" });
     }
 
     async function handleSignupSubmit(e) {
@@ -49,8 +49,8 @@ function Home({ getUserDetails, handleValidation }) {
         try {
             const isSignedUp = await signup(
                 signupData.name,
-                signupData.usn,
-                signupData.admn_num,
+                signupData.description,
+                signupData.availability,
                 signupData.email,
                 signupData.password
             );
@@ -63,8 +63,8 @@ function Home({ getUserDetails, handleValidation }) {
         }
         setSignupData({
             name: "",
-            usn: "",
-            admn_num: "",
+            description: "",
+            availability: "",
             email: "",
             password: "",
         });
@@ -78,7 +78,7 @@ function Home({ getUserDetails, handleValidation }) {
         )
     ) : (
         <div className="home-wrapper">
-            <h1 className="title">Activity Points Portal</h1>
+            <h1 className="title">NGO Portal</h1>
             <div className="container">
                 {isLogin ? (
                     <div className="loginDiv">
@@ -88,11 +88,11 @@ function Home({ getUserDetails, handleValidation }) {
                         >
                             <p>Login</p>
                             <input
-                                placeholder="USN"
+                                placeholder="Email"
                                 onChange={(e) => handleLoginChange(e)}
                                 type="text"
-                                id="usn"
-                                value={loginData.usn}
+                                id="email"
+                                value={loginData.email}
                             />
                             <input
                                 placeholder="Password"
@@ -130,19 +130,20 @@ function Home({ getUserDetails, handleValidation }) {
                                 value={signupData.name}
                             />
                             <input
-                                placeholder="USN"
+                                placeholder="Description"
                                 onChange={(e) => handleSignupChange(e)}
                                 type="text"
-                                id="usn"
-                                value={signupData.usn}
+                                id="description"
+                                value={signupData.description}
                             />
                             <input
-                                placeholder="Admission Number"
+                                placeholder="Availabilty"
                                 onChange={(e) => handleSignupChange(e)}
                                 type="text"
-                                id="admn_num"
-                                value={signupData.admn_num}
+                                id="availability"
+                                value={signupData.availability}
                             />
+                            
                             <input
                                 placeholder="Email"
                                 onChange={(e) => handleSignupChange(e)}

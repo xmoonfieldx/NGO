@@ -14,7 +14,7 @@ const NavBar = () => {
     return (
         <nav className="dashboardHeader">
             <Link className="siteName" to="/dashboard">
-                Activity Points Portal
+                NGO Portal
             </Link>
             <ul>
                 <li>

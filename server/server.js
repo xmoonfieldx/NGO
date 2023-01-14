@@ -2,8 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
-//import routes
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/user");
 
@@ -32,5 +30,3 @@ mongoose.connect(process.env.MONGO_URI, (err, client) => {
     }
     console.log("DB connected");
 });
-
-//random secret generator: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)

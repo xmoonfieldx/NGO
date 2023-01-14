@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const studentSchema = new mongoose.Schema({
+const NGOSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
         max: 255,
     },
-    usn: {
+    description: {
         type: String,
         required: true,
-        max: 10,
+        max: 255,
     },
-    admn_num: {
+    availability: {
         type: String,
         required: true,
         max: 10,
@@ -30,11 +30,7 @@ const studentSchema = new mongoose.Schema({
         min: 6,
         max: 1024,
     },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
 });
 
-studentSchema.plugin(uniqueValidator); //mongoose unique validator
-module.exports = mongoose.model("Student", studentSchema);
+NGOSchema.plugin(uniqueValidator); //mongoose unique validator
+module.exports = mongoose.model("NGO", NGOSchema);

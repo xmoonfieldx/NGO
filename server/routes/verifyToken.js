@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
 
     try {
         const verified = jwt.verify(req.token, process.env.ACCESS_TOKEN_SECRET);
-        req.student = verified;
+        req.ngo = verified;
         next();
     } catch (err) {
         res.status(400).send("Invalid Token");

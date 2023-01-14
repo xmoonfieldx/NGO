@@ -27,7 +27,7 @@ function Forgot() {
         <form className="loginForm" onSubmit={(e) => handleForgotSubmit(e)}>
             <p>Enter your Email</p>
             <input
-                placeholder="USN"
+                placeholder="Email"
                 onChange={(e) => handleUsnChange(e)}
                 type="text"
                 id="usn"
